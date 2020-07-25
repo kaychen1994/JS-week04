@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入頁面</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/all.css">
+</head>
+
+<body>
+    <div id="app" class="wrap container-fluid">
+        <div class="row">
+            <div class="loginBanner col-md-4">
+                <h1 class="mb-5">Watches Store</h1>
+                <img src="https://upload.cc/i1/2020/07/16/AqkJsj.png" alt="">
+            </div>
+            <form class="loginContent col-md-6" @submit.prevent="login">
+                <h2 class="font-weight-bold mb-4 text-warning">LOGIN</h2>
+                <div class="loginInput mb-4">
+                    <div class="loginLogo bg-dark">
+                        <span class="material-icons user">
+                            person
+                        </span>
+                    </div>
+                    <input type="email" placeholder="Email address" class="pl-3" v-model="user.email" required
+                        autofocus>
+                </div>
+                <div class="loginInput mb-5">
+                    <div class="loginLogo bg-dark">
+                        <span class="material-icons user">
+                            vpn_key
+                        </span>
+                    </div>
+                    <input type="password" placeholder="Password" class="pl-3" v-model="user.password" @click="enterKey" required>
+                </div>
+                <button type="submit" class="btn btn-dark btn-lg loginBtn">Login</button>
+                <p class="mt-5">© 2020 Watches Store</p>
+                <!-- <div class="btn" @click="getData">get</div> -->
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/login.js"></script>
+</body>
+
+</html>

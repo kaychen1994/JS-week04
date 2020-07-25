@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產品管理頁面</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/all.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <div id="product" class="container-fluid">
+        <div class="row">
+            <!-- admin menu  -->
+            <div class="menu col-md-2 pt-5 pl-4">
+                <ul class="list-unstyled">
+                    <li class="mb-5">
+                        <a href="index.html" class="d-flex align-items-center">
+                            <img src="https://image.flaticon.com/icons/svg/3089/3089925.svg" alt="" class="homeLogo">
+                            <h1 class="text-light font-weight-bold fz-36 ml-2">
+                                後台管理平台
+                            </h1>
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="d-flex align-items-center">
+                            <span class="material-icons text-light mr-3">
+                                list_alt
+                            </span>
+                            <span class="text-light list-hover">
+                                產品列表
+                            </span>
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="d-flex align-items-center">
+                            <span class="material-icons text-light mr-3">
+                                table_view
+                            </span>
+                            <span class="text-light list-hover">
+                                訂單列表
+                            </span>
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="d-flex align-items-center">
+                            <span class="material-icons text-light mr-3">
+                                comment
+                            </span>
+                            <span class="text-light list-hover">
+                                顧客評價
+                            </span>
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="d-flex align-items-center">
+                            <span class="material-icons text-light mr-3">
+                                analytics
+                            </span>
+                            <span class="text-light list-hover">
+                                數據分析
+                            </span>
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="d-flex align-items-center">
+                            <span class="material-icons text-light mr-3">
+                                settings
+                            </span>
+                            <span class="text-light list-hover">
+                                後台設定
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <a href="login.html" class="admin pb-5 d-flex align-items-center" @click="logout">
+                    <span class="material-icons text-light mr-3">
+                        admin_panel_settings
+                    </span>
+                    <span class="logOut">
+                        Log Out
+                    </span>
+                </a>
+            </div>
+            <!-- admin content -->
+            <div class="col-md-9 pt-5 ml-5">
+                <div class="mb-5">
+                    <button type="button" class="creatContent fz-20 btn btn-info" data-toggle="modal"
+                        data-target=".bd-example-modal-xl" @click="openModal('new')">建立新的產品</button>
+                </div>
+                <!-- product modal -->
+                <div id="productModal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+                    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                    <modal :is-new = "isNew" :api = "api" :tem-product="temProduct" @update = "getProducts"></modal>
+                </div>
+                <!-- delete modal -->
+                <div id="delProductModal" class="modal fade" id="staticBackdrop" data-backdrop="static"
+                    data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+                    aria-hidden="true">
+                    <del-modal :api = "api" :tem-product="temProduct" @update = "getProducts"></del-modal>
+                </div>
+                <!-- product list -->
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">分類</th>
+                            <th scope="col">產品名稱</th>
+                            <th scope="col">原價</th>
+                            <th scope="col">售價</th>
+                            <th scope="col">是否啟用</th>
+                            <th scope="col">編輯</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in products" :key="item.id">
+                            <td>{{ item.category }}</td>
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.origin_price }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>
+                                <span v-if="item.enabled" class="text-warning">啟用</span>
+                                <span v-else>未啟用</span>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-outline-primary mr-2"
+                                        @click="openModal('edit',item)">編輯</button>
+                                    <button type="button" class="btn btn-outline-danger"
+                                        @click="openModal('delete',item)">刪除</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- pagination 前內後外-->
+                <pagination :pages="pagination" @update="getProducts"></pagination>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/products.js" type="module"></script> <!-- type module 才能匯入 module -->
+</body>
+
+</html>
