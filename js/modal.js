@@ -56,7 +56,7 @@ export default {
                             cols="70" rows="5" class="pt-3 pl-3"></textarea>
                         <br>
                         <input type="checkbox" class="mt-3" id="enabled"
-                            v-model="temProduct.enabled" :true-value="1" :false-value="0"></input>
+                            v-model="temProduct.enabled"></input>
                         <label for="enabled">是否啟用</label>
                     </div>
                 </div>
